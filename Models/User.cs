@@ -10,5 +10,6 @@ namespace TradingCardventory.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public List<Card> UserCards { get; set; }
+        public string UserId { get; set; }
     }
 }

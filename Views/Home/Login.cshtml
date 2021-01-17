@@ -1,0 +1,59 @@
+﻿@page
+@model TradingCardventory.Models.User
+@{
+    ViewBag.Title = "Login";
+
+}
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Login</legend>
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (ViewBag.MyErrorMessage != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.MyErrorMessage
+            </div>
+        }
+        <table>
+            <tr>
+                <td>User Name</td>
+                <td>@Html.TextBoxFor(a => a.UserName)</td>
+                <td>@Html.ValidationMessageFor(a => a.UserName)</td>
+            </tr>
+            <tr>
+                <td>
+                    Password
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.Password)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(a => a.Password)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input class="btn btn-default" type="submit" value="Login" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <p>Don't have your user name setup yet? Create your user name here: </p>
+                <p><a class="btn btn-default" href="/User/Create">Create my user</a></p>
+            </tr>
+        </table>
+    </fieldset>
+
+
+
+
+
+
+
+
+}

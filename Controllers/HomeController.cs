@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,19 @@ namespace TradingCardventory.Controllers
         }
 
         public IActionResult Index()
+        {
+            if (HttpContext.Session.GetString("UserId") != null)
+            {
+                //Get logged in User with UserId and return correct views
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
+
+        public IActionResult Login()
         {
             return View();
         }
