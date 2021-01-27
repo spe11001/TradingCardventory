@@ -1,9 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace TradingCardventory.Models
 {
@@ -11,7 +9,9 @@ namespace TradingCardventory.Models
     {
         [BsonId]
         public ObjectId Id { get; set; }
+        [Required(AllowEmptyStrings=false, ErrorMessage="Username is required")]
         public string UserName { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
         public string Password { get; set; }
         public List<Card> UserCards { get; set; }
         public string UserId { get; set; }

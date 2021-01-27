@@ -1,8 +1,19 @@
-﻿@{
+﻿@model TradingCardventory.Models.User
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Trading Cardventory</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-1">Hello @Model.UserName ! </h1>
+    <h2>Want to play a game?</h2>
+    @{var cardlist = Model.UserCards;}
+    @if (cardlist == null)
+    {
+        <h2>You don't have any cards</h2>
+    }
+    else
+    {
+        <img src="@Model.UserCards[0].ImageUrl" width="200" height="300">
+    }
 </div>

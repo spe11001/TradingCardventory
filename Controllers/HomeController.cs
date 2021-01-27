@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using TradingCardventory.Models;
 using TradingCardventory.Utilites;
 
@@ -27,13 +23,13 @@ namespace TradingCardventory.Controllers
         {
             if (HttpContext.Session.GetString("UserId") != null)//This gets the session UserId's values
             {
-                //Get logged in User with UserId and return correct views
+                var user = dataBaseAccessUtility.GetUserById(HttpContext.Session.GetString("UserId")); //Geting the user via the session's userId
+                return View(user);   
             }
             else
             {
                 return RedirectToAction("Login");
             }
-            return View();
         }
 
         public IActionResult Login()
@@ -43,7 +39,7 @@ namespace TradingCardventory.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(User user)
+        public IActionResult Login(User user) //overloading first method, same name, different signatures
         {
             if (ModelState.IsValid)
             {
@@ -52,6 +48,7 @@ namespace TradingCardventory.Controllers
                 var loggedInUser = dataBaseAccessUtility.GetLoggedInUser(user.UserName, user.Password);
                 if (loggedInUser != null)
                 {
+                    HttpContext.Session.SetString("UserId", loggedInUser.UserId);
                     return RedirectToAction("Index");
                 }
                 else

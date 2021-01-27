@@ -12,9 +12,9 @@
 <h2>Create your username!</h2>
 
 <hr />
-@if (ViewBag.UserCreationSucess != null)
+@if (ViewBag.UserCreationSuccess != null)
 {
-    <h4>@ViewBag.UserCreationSucess</h4>
+    <h4>@ViewBag.UserCreationSuccess</h4>
 }
 @using (Html.BeginForm("Create", "Users", FormMethod.Post))
 {
