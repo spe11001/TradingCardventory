@@ -1,9 +1,7 @@
 ﻿@model TradingCardventory.Models.User
 
 <div class="text-center">
-    <h1 class="display-1">Hello @Model.UserName ! Welcome to Trading Cardventory </h1>
-    @{var cardlist = Model.UserCards;}
-    @if (cardlist == null)
+    @if (Model.UserCards.Count == 0)
     {
         <h2>You don't have any cards</h2>
     }

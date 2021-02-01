@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TradingCardventory.Models;
 using TradingCardventory.Utilites;
@@ -16,7 +17,7 @@ namespace TradingCardventory.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            dataBaseAccessUtility = new DataBaseAccessUtility();
+            dataBaseAccessUtility = new DataBaseAccessUtility(); //set the initial value for dataBaseAccessUtility
         }
 
         public IActionResult Index()
@@ -24,11 +25,11 @@ namespace TradingCardventory.Controllers
             if (HttpContext.Session.GetString("UserId") != null)//This gets the session UserId's values
             {
                 var user = dataBaseAccessUtility.GetUserById(HttpContext.Session.GetString("UserId")); //Geting the user via the session's userId
-                return View(user);   
+                return View(user);
             }
             else
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login"); //redirects to Login action
             }
         }
 
@@ -41,9 +42,9 @@ namespace TradingCardventory.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(User user) //overloading first method, same name, different signatures
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //checks if required properties are entered
             {
-                //Step 1 Get user from database given inputs from Login page
+                //Get user from database given inputs from Login page
 
                 var loggedInUser = dataBaseAccessUtility.GetLoggedInUser(user.UserName, user.Password);
                 if (loggedInUser != null)
@@ -57,6 +58,19 @@ namespace TradingCardventory.Controllers
                 }
             }
             return View(user);
+        }
+
+        public IActionResult MyCards()
+        {
+            if (HttpContext.Session.GetString("UserId") != null)//This gets the session UserId's values
+            {
+                var user = dataBaseAccessUtility.GetUserById(HttpContext.Session.GetString("UserId")); //Geting the user via the session's userId
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Login"); //redirects to Login action
+            }
         }
 
         public IActionResult Privacy()
