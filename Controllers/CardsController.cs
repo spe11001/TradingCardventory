@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using TradingCardventory.Models;
 using TradingCardventory.Utilites;
 
 namespace TradingCardventory.Controllers
 {
-    public class UsersController : Controller
+    public class CardsController : Controller
     {
         private DataBaseAccessUtility dataBaseAccessUtility;
 
-        public UsersController()
+        public CardsController()
         {
             dataBaseAccessUtility = new DataBaseAccessUtility();
         }
@@ -18,32 +19,32 @@ namespace TradingCardventory.Controllers
         {
             return View();
         }
-
-        public IActionResult Create()
+        public IActionResult AddCard()
         {
-            return View(new User());
+            return View(new Card());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(User user)
+        public IActionResult AddCard(Card card)
         {
             if (ModelState.IsValid)
             {
-                AddUserToDatabase(user);
-                ViewBag.UserCreationSuccess = "You have successfully created your user name!";
-                return View(new User());
+                var userId = HttpContext.Session.GetString("UserId");
+                AddCardToUser(card, userId);
+                ViewBag.UserCreationSuccess = "You have successfully added your card!";
+                return View(new Card());
             }
             else
             {
-                return View(user);
+                return View(card);
             }
         }
-        public void AddUserToDatabase(User user)
+        public void AddCardToUser(Card card, string userId)
         {
             try
             {
-                dataBaseAccessUtility.CreateUserAccount(user);
+                dataBaseAccessUtility.AddCardToUser(card, userId);
             }
             catch (Exception e)
             {

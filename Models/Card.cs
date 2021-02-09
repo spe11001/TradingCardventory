@@ -9,5 +9,6 @@
         public string Rarity { get; set; }
         public string Set { get; set; }
         public string Series { get; set; }
+        public decimal MarketValue { get; set; }
     }
 }

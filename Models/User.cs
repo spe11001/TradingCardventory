@@ -16,5 +16,6 @@ namespace TradingCardventory.Models
         public List<Card> UserCards { get; set; }
         public string UserId { get; set; }
         public List<Card> WishList { get; set; }
+        public List<string> FriendIds { get; set; }
     }
 }

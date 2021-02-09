@@ -60,6 +60,11 @@ namespace TradingCardventory.Utilites
             user.Password.Trim();
             collection.InsertOne(user);
         }
+        public void AddCardToUser(Card card, string userId)
+        {
+            
+        }
+
 
     }
 }
