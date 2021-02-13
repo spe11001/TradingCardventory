@@ -1,0 +1,7 @@
+﻿@model IEnumerable<TradingCardventory.Models.Card>
+
+@foreach (var card in Model)
+{
+    <p>@card.CardName </p>
+    <img src="@card.ImageUrl" width="200" height="300">
+}

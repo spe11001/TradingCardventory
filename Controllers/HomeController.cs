@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using TradingCardventory.Models;
-using TradingCardventory.Utilites;
+using TradingCardventory.Utilities;
 
 namespace TradingCardventory.Controllers
 {

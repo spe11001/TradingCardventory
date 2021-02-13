@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using TradingCardventory.Models;
-using TradingCardventory.Utilites;
+using TradingCardventory.Utilities;
 
 namespace TradingCardventory.Controllers
 {

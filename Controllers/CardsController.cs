@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using TradingCardventory.Models;
 using TradingCardventory.Services;
-using TradingCardventory.Utilites;
+using TradingCardventory.Utilities;
 
 namespace TradingCardventory.Controllers
 {
@@ -22,22 +23,20 @@ namespace TradingCardventory.Controllers
         {
             return View();
         }
-        public IActionResult AddCard()
+        public IActionResult SearchForCardsByName()
         {
             return View(new Card());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddCard(Card card)
+        public IActionResult SearchForCardsByName(Card card)
         {
             if (ModelState.IsValid)
             {
-                var listOfCards = pokemonTcgService.GetCardByName(card.CardName);
-                var userId = HttpContext.Session.GetString("UserId");
-                AddCardToUser(card, userId);
-                ViewBag.UserCreationSuccess = "You have successfully added your card!";
-                return View(new Card());
+                var listOfCards = pokemonTcgService.GetCardsByName(card.CardName);
+                TempData["cards"] = JsonConvert.SerializeObject(listOfCards);
+                return RedirectToAction("SearchForCardsResult");
             }
             else
             {
@@ -54,6 +53,13 @@ namespace TradingCardventory.Controllers
             {
                 throw e;
             }
+        }
+        public IActionResult SearchForCardsResult()
+        {
+            var cards = JsonConvert.DeserializeObject<List<Card>>((string)TempData["cards"]);
+
+            //var cards = TempData["cards"] as List<Card>;
+            return View(cards);
         }
     }
 }
