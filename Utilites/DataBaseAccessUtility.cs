@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TradingCardventory.Models;
 
@@ -58,6 +59,9 @@ namespace TradingCardventory.Utilites
             }
             user.UserName.Trim();
             user.Password.Trim();
+            user.UserCards = new List<Card>();
+            user.FriendIds = new List<string>();
+            user.WishList = new List<Card>();
             collection.InsertOne(user);
         }
         public void AddCardToUser(Card card, string userId)

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using TradingCardventory.Models;
+using TradingCardventory.Services;
 using TradingCardventory.Utilites;
 
 namespace TradingCardventory.Controllers
@@ -9,9 +10,11 @@ namespace TradingCardventory.Controllers
     public class CardsController : Controller
     {
         private DataBaseAccessUtility dataBaseAccessUtility;
+        private PokemonTcgService pokemonTcgService;
 
         public CardsController()
         {
+            pokemonTcgService = new PokemonTcgService();
             dataBaseAccessUtility = new DataBaseAccessUtility();
         }
 
@@ -30,6 +33,7 @@ namespace TradingCardventory.Controllers
         {
             if (ModelState.IsValid)
             {
+                var listOfCards = pokemonTcgService.GetCardByName(card.CardName);
                 var userId = HttpContext.Session.GetString("UserId");
                 AddCardToUser(card, userId);
                 ViewBag.UserCreationSuccess = "You have successfully added your card!";
