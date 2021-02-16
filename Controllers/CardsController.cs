@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using TradingCardventory.Models;
 using TradingCardventory.Services;
 using TradingCardventory.Utilities;
@@ -29,20 +28,18 @@ namespace TradingCardventory.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult SearchForCardsByName(Card card)
         {
             if (ModelState.IsValid)
             {
-                var listOfCards = pokemonTcgService.GetCardsByName(card.CardName);
-                TempData["cards"] = JsonConvert.SerializeObject(listOfCards);
-                return RedirectToAction("SearchForCardsResult");
+                return RedirectToAction("SearchForCardsResult", new { cardName = card.CardName });
             }
             else
             {
                 return View(card);
             }
         }
+
         public void AddCardToUser(Card card, string userId)
         {
             try
@@ -54,12 +51,24 @@ namespace TradingCardventory.Controllers
                 throw e;
             }
         }
-        public IActionResult SearchForCardsResult()
-        {
-            var cards = JsonConvert.DeserializeObject<List<Card>>((string)TempData["cards"]);
 
-            //var cards = TempData["cards"] as List<Card>;
-            return View(cards);
+        public IActionResult SearchForCardsResult(string cardName)
+        {
+            var listOfCards = pokemonTcgService.GetCardsByName(cardName);
+            return View(listOfCards);
+        }
+
+        [HttpGet]
+        public IActionResult AddCard(Card card)
+        {
+            return View(card);
+        }
+
+        public IActionResult AddCardPost(Card card)
+        {
+            AddCardToUser(card, HttpContext.Session.GetString("UserId"));
+            TempData["AddCardSuccess"] = "You have successfully added your card!";
+            return RedirectToAction("MyCards", "Home");
         }
     }
 }

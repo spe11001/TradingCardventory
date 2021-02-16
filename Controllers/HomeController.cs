@@ -31,7 +31,6 @@ namespace TradingCardventory.Controllers
                 return RedirectToAction("Login"); //redirects to Login action
             }
         }
-
         public IActionResult Login()
         {
             return View();

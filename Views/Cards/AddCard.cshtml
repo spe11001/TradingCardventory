@@ -1,1 +1,36 @@
-﻿
+﻿@model TradingCardventory.Models.Card
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="@Model.HighResImg" width="400" height="500">
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">Card Name:</label>
+            <label>@Model.CardName</label>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Card Id:</label>
+            <label>@Model.CardId</label>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Rarity:</label>
+            <label>@Model.Rarity</label>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Set:</label>
+            <label>@Model.Set</label>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Supertype:</label>
+            <label>@Model.Supertype</label>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Series:</label>
+            <label>@Model.Series</label>
+        </div>
+        <div class="form-group">
+            <input type="button" value="Add Card" onclick="location.href='@Url.Action("AddCardPost", Model)'" />
+        </div>
+    </div>
+</div>

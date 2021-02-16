@@ -1,5 +1,10 @@
 ﻿@model TradingCardventory.Models.User
 
+@if (TempData["AddCardSuccess"] != null)
+{
+    <h4>@TempData["AddCardSuccess"]</h4>
+}
+
 <div class="text-center">
     @if (Model.UserCards.Count == 0)
     {
@@ -7,6 +12,9 @@
     }
     else
     {
-        <img src="@Model.UserCards[0].ImageUrl" width="200" height="300">
+        @foreach (var card in Model.UserCards)
+        {
+            <img src="@card.ImageUrl" width="300" height="400">
+        }
     }
 </div>

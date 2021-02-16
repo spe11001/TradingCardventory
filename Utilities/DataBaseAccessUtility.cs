@@ -50,6 +50,7 @@ namespace TradingCardventory.Utilities
                 return null;
             }
         }
+
         public void CreateUserAccount(User user)
         {
             var collection = _db.GetCollection<User>("Users");
@@ -64,11 +65,18 @@ namespace TradingCardventory.Utilities
             user.WishList = new List<Card>();
             collection.InsertOne(user);
         }
+
         public void AddCardToUser(Card card, string userId)
         {
-            
+            var filter = Builders<User>.Filter.Eq(x => x.UserId, userId);
+            var collection = _db.GetCollection<User>("Users");
+            var result = collection.Find(x => x.UserId == userId).ToList();
+            var x = result.First();
+            x.UserCards.Add(card);
+            //get user by user id via db call
+            //add card to user.UserCards
+            //finally do the last stop FindOneAndreplace pass in updated user
+            collection.FindOneAndReplace(filter, x);
         }
-
-
     }
 }

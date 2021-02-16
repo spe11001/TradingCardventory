@@ -20,6 +20,7 @@ namespace TradingCardventory.Mappers
                 card.Set = item.set.id;
                 card.Series = item.set.series;
                 card.ImageUrl = item.images.small;
+                card.HighResImg = item.images.large;
 
                 collection.Add(card);
             }

@@ -8,18 +8,17 @@
 <h2>Find your card!</h2>
 
 <hr />
-@using (Html.BeginForm("SearchForCardsByName", "Cards", FormMethod.Post))
-{
     <div class="row">
         <div class="col-md-4">
-            <div class="form-group">
-                <input name="CardName" class="form-control" value="@Model.CardName" placeholder="Search for a card" />
-                @Html.ValidationMessageFor(a => a.CardName)
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-default" />
-            </div>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input name="CardName" class="form-control" value="@Model.CardName" placeholder="Search for a card" />
+                    @Html.ValidationMessageFor(a => a.CardName)
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Search" class="btn-basic" />
+                </div>
+            </form>
         </div>
     </div>
-}

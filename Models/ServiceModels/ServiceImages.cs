@@ -8,5 +8,6 @@ namespace TradingCardventory.Models.ServiceModels
     public class ServiceImages
     {
         public string small { get; set; }
+        public string large { get; set; }
     }
 }

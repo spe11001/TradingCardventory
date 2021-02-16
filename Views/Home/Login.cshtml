@@ -6,7 +6,7 @@
 @using (Html.BeginForm("Login", "Home", FormMethod.Post))
 {
     <fieldset>
-        <legend>Login</legend>
+        <legend>Welcome to TradingCardventory</legend>
 
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
@@ -36,13 +36,13 @@
             <tr>
                 <td></td>
                 <td>
-                    <input class="btn btn-default" type="submit" value="Login" />
+                    <input class="btn-basic" type="submit" value="Login" />
                 </td>
                 <td></td>
             </tr>
             <tr>
                 <p>Don't have your user name setup yet? Create your user name here: </p>
-                <p><a class="btn btn-default" href="/Users/Create">Create my user</a></p>
+                <p><a class="btn btn-info" href="/Users/Create">Create my user</a></p>
             </tr>
         </table>
     </fieldset>
