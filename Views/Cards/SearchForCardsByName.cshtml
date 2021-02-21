@@ -5,20 +5,25 @@
     <script>alert("@ViewBag.MyErrorMessage");</script>
 }
 
+@if (TempData["NoCardMatch"] != null)
+{
+    <h4>@TempData["NoCardMatch"]</h4>
+}
+
 <h2>Find your card!</h2>
 
 <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input name="CardName" class="form-control" value="@Model.CardName" placeholder="Search for a card" />
-                    @Html.ValidationMessageFor(a => a.CardName)
-                </div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input name="CardName" class="form-control" value="@Model.CardName" placeholder="Search for a card" />
+                @Html.ValidationMessageFor(a => a.CardName)
+            </div>
 
-                <div class="form-group">
-                    <input type="submit" value="Search" class="btn-basic" />
-                </div>
-            </form>
-        </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn-basic" />
+            </div>
+        </form>
     </div>
+</div>

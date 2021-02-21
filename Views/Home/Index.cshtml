@@ -1,14 +1,5 @@
 ﻿@model TradingCardventory.Models.User
 
 <div class="text-center">
-    <h1 class="display-1">Hello @Model.UserName ! Welcome to Trading Cardventory </h1>
-    @*@{var cardlist = Model.UserCards;}
-    @if (cardlist == null)
-    {
-        <h2>You don't have any cards</h2>
-    }
-    else
-    {
-        <img src="@Model.UserCards[0].ImageUrl" width="200" height="300">
-    }*@
+    <h1 class="display-4">Hello @Model.UserName ! Welcome to Trading Cardventory </h1>
 </div>

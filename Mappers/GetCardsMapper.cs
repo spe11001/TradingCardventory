@@ -18,7 +18,7 @@ namespace TradingCardventory.Mappers
                 card.Supertype = item.supertype;
                 card.Rarity = item.rarity;
                 card.Set = item.set.id;
-                card.Series = item.set.series;
+                card.SetName = item.set.name;
                 card.ImageUrl = item.images.small;
                 card.HighResImg = item.images.large;
 

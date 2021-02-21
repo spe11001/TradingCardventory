@@ -8,6 +8,7 @@ namespace TradingCardventory.Models.ServiceModels
     public class ServiceSet
     {
         public string id { get; set; }
+        public string name { get; set; }
         public string series { get; set; }
 
     }

@@ -17,9 +17,9 @@ namespace TradingCardventory.Services
                 var response = client.GetAsync("https://api.pokemontcg.io/v2/cards?q=name:" + name).Result;
                 var responseContent = response.Content.ReadAsStringAsync().Result;
                 //deserialize the Json string into our GetCardByNameServiceResponse model
-                var x = JsonConvert.DeserializeObject<GetCardByNameServiceResponse>(responseContent);
-                var mapper = new GetCardsMapper(); //This is a class! needs to be intialized 
-                return mapper.Map(x.data);
+                var deserialized = JsonConvert.DeserializeObject<GetCardByNameServiceResponse>(responseContent);
+                var mapper = new GetCardsMapper();
+                return mapper.Map(deserialized.data);
             }
         }
             

@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<TradingCardventory.Models.Card>
 
-@foreach (var card in Model)
-{
-    <p>@card.CardName</p>
-
-    <a href ="@Url.Action("AddCard", card)" id="@card.CardId">
-        <img src="@card.ImageUrl">
-    </a>
-}
+<div class="col">
+    <div class="row">
+        @foreach (var card in Model)
+        {
+            <div class="col-lg-4">
+                <h6>@card.CardName: @card.SetName</h6>
+                <a href="@Url.Action("AddCard", card)" id="@card.CardId">
+                    <img src="@card.HighResImg" width="250" height="350">
+                </a>
+            </div>
+        }
+    </div>
+</div>

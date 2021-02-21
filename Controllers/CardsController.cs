@@ -51,14 +51,32 @@ namespace TradingCardventory.Controllers
                 throw e;
             }
         }
+        public void DeleteCardFromUser(Card card, string userId)
+        {
+            try
+            {
+                dataBaseAccessUtility.DeleteCardFromUser(card.CardId, userId);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
         public IActionResult SearchForCardsResult(string cardName)
         {
             var listOfCards = pokemonTcgService.GetCardsByName(cardName);
-            return View(listOfCards);
+            if (listOfCards.Count > 0)
+            {
+                return View(listOfCards);
+            }
+            else
+            {
+                TempData["NoCardMatch"] = "No cards matched your search!";
+                return RedirectToAction("SearchForCardsByName");
+            }
         }
 
-        [HttpGet]
         public IActionResult AddCard(Card card)
         {
             return View(card);
@@ -67,8 +85,19 @@ namespace TradingCardventory.Controllers
         public IActionResult AddCardPost(Card card)
         {
             AddCardToUser(card, HttpContext.Session.GetString("UserId"));
-            TempData["AddCardSuccess"] = "You have successfully added your card!";
+            TempData["AddCardSuccess"] = "You have successfully added " + card.CardName + "!";
             return RedirectToAction("MyCards", "Home");
         }
+        public IActionResult DeleteCard(Card card)
+        {
+            return View(card);
+        }
+        public IActionResult DeleteCardPost(Card card)
+        {
+            DeleteCardFromUser(card, HttpContext.Session.GetString("UserId"));
+            TempData["DeleteCardSuccess"] = "You have successfully deleted " + card.CardName + "!";
+            return RedirectToAction("MyCards", "Home");
+        }
+
     }
 }

@@ -5,16 +5,30 @@
     <h4>@TempData["AddCardSuccess"]</h4>
 }
 
+@if (TempData["DeleteCardSuccess"] != null)
+{
+    <h4>@TempData["DeleteCardSuccess"]</h4>
+}
+
 <div class="text-center">
-    @if (Model.UserCards.Count == 0)
+    @if (Model.UserCards.Count <= 0)
     {
         <h2>You don't have any cards</h2>
     }
     else
     {
-        @foreach (var card in Model.UserCards)
-        {
-            <img src="@card.ImageUrl" width="300" height="400">
-        }
+        <div class="col">
+            <div class="row">
+                @foreach (var card in Model.UserCards)
+                {
+                <div class="col-lg-4">
+                    <h6>@card.CardName: @card.SetName</h6>
+                    <a href="@Url.Action("DeleteCard", "Cards", card)" id="@card.CardId">
+                        <img src="@card.HighResImg" width="300" height="400">
+                    </a>
+                </div>
+                }
+            </div>
+        </div>
     }
 </div>

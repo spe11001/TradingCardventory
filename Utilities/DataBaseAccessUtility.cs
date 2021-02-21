@@ -71,12 +71,22 @@ namespace TradingCardventory.Utilities
             var filter = Builders<User>.Filter.Eq(x => x.UserId, userId);
             var collection = _db.GetCollection<User>("Users");
             var result = collection.Find(x => x.UserId == userId).ToList();
-            var x = result.First();
-            x.UserCards.Add(card);
+            var user = result.First();
+            user.UserCards.Add(card);
             //get user by user id via db call
             //add card to user.UserCards
             //finally do the last stop FindOneAndreplace pass in updated user
-            collection.FindOneAndReplace(filter, x);
+            collection.FindOneAndReplace(filter, user);
+        }
+
+        public void DeleteCardFromUser(string cardId, string userId)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.UserId, userId);
+            var collection = _db.GetCollection<User>("Users");
+            var result = collection.Find(x => x.UserId == userId).ToList();
+            var user = result.First();
+            var resultCard = user.UserCards.RemoveAll(x => x.CardId == cardId);
+            collection.FindOneAndReplace(filter, user);
         }
     }
 }

@@ -58,6 +58,12 @@ namespace TradingCardventory.Controllers
             return View(user);
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
+
         public IActionResult MyCards()
         {
             if (HttpContext.Session.GetString("UserId") != null)//This gets the session UserId's values
